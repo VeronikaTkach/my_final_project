@@ -1,0 +1,15 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerMenu{
+    list-style: none;
+    display: flex;
+    margin-left: -40px;
+}
+
+.headerMenu li{
+    margin: 20px 20px;
+    font-size: 30px;
+}
