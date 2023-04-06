@@ -1,15 +1,25 @@
 .header{
-    display: flex;
-    justify-content: space-between;
+    text-align:center;
+
 }
 
 .headerMenu{
+    margin-left: -40px;
     list-style: none;
     display: flex;
-    margin-left: -40px;
+    position:relative;
+    display: flex;
+    justify-content: space-between;
+   
+    
 }
 
 .headerMenu li{
     margin: 20px 20px;
+    padding-inline-start: 50px;
     font-size: 30px;
+}
+
+.link{
+
 }
