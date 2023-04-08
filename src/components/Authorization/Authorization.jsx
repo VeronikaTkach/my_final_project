@@ -3,33 +3,40 @@ import {Link} from 'react-router-dom'
 import store from '../../data/store'
 import './Authorization.css'
 
-const Authorization = ({active, setActive}) => {
+export const Authorization = ({active, setActive}) => {
 
     const {
-        onSubmit, email,
-        changeEmail, password, 
-        changePass, error, 
-        // data, setData,
-        // email, setEmail,
-        // error, setError, 
-        // password, setPassword
+        onSubmit, 
+        email, setEmail,
+        password, setPassword, 
+        error
     } = useContext(store)
 
     const activateAuthorization = () => {
         setActive(false)
     }
 
+    const stop = (e) => {
+        e.stopPropagation()
+    }
+    
+    const changeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+    
+    const changePass = (e) => {
+        setPassword(e.target.value)
+    }
+
     return(
         <div className={ active ? 'authorization_window activate' : 'authorization_window' } onClick={activateAuthorization} >
             <form className='authorization' onSubmit={onSubmit} onClick={stop}>
-                <Link to='/authorization' onClick={activateAuthorization} className='auth'>Registration</Link>
+                <Link to='/registration' onClick={activateAuthorization} className='auth'>Регистрация</Link>
                 <input type="text" value={email} onChange={changeEmail} placeholder='Email' />
-                <input type="password" value={password} onChange={changePass} placeholder='Password' />
-                {error && <p className='alarm'>Error</p>}
-                <button type='submit' className='authorization_button'>Sign In</button>
+                <input type="password" value={password} onChange={changePass} placeholder='Пароль' />
+                {error && <p className='alarm'>Ошибка</p>}
+                <button type='submit' className='authorization_button'>Вход</button>
             </form>
         </div>
     )
 }
-
-export default Authorization;

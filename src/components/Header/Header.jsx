@@ -3,7 +3,7 @@ import store from '../../data/store'
 import { Link } from 'react-router-dom'
 import './Header.css'
 
-const Header = ({active, setActive}) => {
+export const Header = ({active, setActive}) => {
 
     const {login, setLogin} = useContext(store)
 
@@ -25,11 +25,10 @@ const Header = ({active, setActive}) => {
                 <li>
                     <Link className='link' to ="report">  Сообщить о краже </Link>                   
                 </li>
-                {login ? <li> <Link className="link" onClick={logOut} to="/">Выход</Link></li> : 
+                {login ? 
+                    <li><Link className="link" onClick={logOut} to="/">Выход</Link></li> : 
                     <li><Link className="link" onClick={onActive} to="/">Вход</Link></li>}
             </ul>
         </div>
     )
 }
-
-export default Header;

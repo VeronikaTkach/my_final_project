@@ -2,7 +2,7 @@ import React, { Fragment } from "react"
 import img1 from '../../pictures/img1.jpg'
 import './Main.css'
 
-const Main = () => {
+export const Main = () => {
 
     return (
         <Fragment>
@@ -16,5 +16,3 @@ const Main = () => {
         </Fragment>
     )
 }
-
-export default Main

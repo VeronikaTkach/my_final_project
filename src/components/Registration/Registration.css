@@ -1,0 +1,35 @@
+.registration{
+    background: #fff;
+    width: 350px;
+    height: 375px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    border: 2px solid #00a4b7;
+}
+
+.registration_title{
+    position: relative;
+    background: #fff;
+    color: #3e4d57;
+    margin-top: 50px;
+    display: inline-block;
+    padding: 15px 40px;
+}
+
+.registration_button{
+    background-color: #00a4b7;
+    border: 1px solid white;
+    color: #fff;
+    padding: 15px 25px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 30%;
+    display: block;
+}
+
+.alarm
+{
+    color: maroon;
+    margin-left: 7%;
+}
