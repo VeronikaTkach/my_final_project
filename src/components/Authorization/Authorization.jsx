@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import './Authorization.css'
 
-export const Authorization = ({isAuthActive, setAuthActive}) => {
+export const Authorization = ({isAuthActive, setLoggedIn, setAuthActive}) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -46,6 +46,7 @@ export const Authorization = ({isAuthActive, setAuthActive}) => {
             setEmail('')
             setPassword('')
             setAuthActive(false)
+            setLoggedIn(true)
             console.log(res)
             console.log(res.data)
             localStorage.setItem('token', res.data.data.token)

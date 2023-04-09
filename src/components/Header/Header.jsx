@@ -3,9 +3,10 @@ import store from '../../data/store'
 import { Link } from 'react-router-dom'
 import './Header.css'
 
-export const Header = ({setAuthActive}) => {
+export const Header = ({isLoggedIn, setLoggedIn, setAuthActive}) => {
 
     const logOut = () => {
+        setLoggedIn (false)
         // remove token from storage
         localStorage.clear()
     }
@@ -13,8 +14,6 @@ export const Header = ({setAuthActive}) => {
     const showAuthForm = () => {
         setAuthActive(true)
     }
-
-    const login = false
 
     return(
         <div className="header">
@@ -25,7 +24,7 @@ export const Header = ({setAuthActive}) => {
                 <li>
                     <Link className='link' to ="report">  Сообщить о краже </Link>                   
                 </li>
-                {login ? 
+                {isLoggedIn ? 
                     <li><Link className="link" onClick={logOut} to="/">Выход</Link></li> : 
                     <li><Link className="link" onClick={showAuthForm} to="/">Вход</Link></li>}
             </ul>
