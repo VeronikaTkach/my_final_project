@@ -3,18 +3,18 @@ import store from '../../data/store'
 import { Link } from 'react-router-dom'
 import './Header.css'
 
-export const Header = ({active, setActive}) => {
-
-    const {login, setLogin} = useContext(store)
+export const Header = ({setAuthActive}) => {
 
     const logOut = () => {
-        setLogin(false)
+        // remove token from storage
         localStorage.clear()
     }
 
-    const onActive = () => {
-        setActive(true)
+    const showAuthForm = () => {
+        setAuthActive(true)
     }
+
+    const login = false
 
     return(
         <div className="header">
@@ -27,7 +27,7 @@ export const Header = ({active, setActive}) => {
                 </li>
                 {login ? 
                     <li><Link className="link" onClick={logOut} to="/">Выход</Link></li> : 
-                    <li><Link className="link" onClick={onActive} to="/">Вход</Link></li>}
+                    <li><Link className="link" onClick={showAuthForm} to="/">Вход</Link></li>}
             </ul>
         </div>
     )

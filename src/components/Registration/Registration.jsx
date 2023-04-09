@@ -4,6 +4,8 @@ import axios from 'axios'
 
 export const Registration = () => {
 
+    const registrationUrl = 'https://sf-final-project-be.herokuapp.com/api/auth/sign_up'
+    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmpassword, setConfirmPassword] = useState('')
@@ -11,6 +13,7 @@ export const Registration = () => {
     const [lastName, setLastName] = useState('')
     const [clientId, setClientId] = useState('')
     const [error, setError] = useState(false)
+    const [data, setData] = useState(null)
 
     const enterName = (e) => {
         setFirstName(e.target.value)
@@ -36,6 +39,11 @@ export const Registration = () => {
         setConfirmPassword(e.target.value)
     }
 
+    const checkPasswords = () =>
+    {
+
+    }
+
     const registrationRequest = (e) => {
         e.preventDefault()
         setError(false)
@@ -45,7 +53,6 @@ export const Registration = () => {
             lastName,
             email,
             password,
-            confirmpassword,
             clientId
         }
 
@@ -53,7 +60,7 @@ export const Registration = () => {
             'Content-Type': 'application/json'
         }
 
-        axios.post()
+        axios.post(registrationUrl, data, headers)
             .then(res => {
                 setData(res.data)
                 setEmail('')
@@ -62,6 +69,8 @@ export const Registration = () => {
                 setPassword('')
                 setConfirmPassword('')
                 setClientId('')
+                console.log(res)
+                console.log(res.data)
             })
             .catch(error => {
                 console.log(error)
@@ -81,7 +90,7 @@ export const Registration = () => {
                 <input onChange={confirmPassword} value={confirmpassword} type="password" placeholder='Подтвердите пароль' />
 
                 {error && <p className='alarm'>Ошибка</p>}
-                <button className='signUp_button'>Зарегистрироваться</button>
+                <button className='registration_button'>Зарегистрироваться</button>
             </form>
         </>
     )
