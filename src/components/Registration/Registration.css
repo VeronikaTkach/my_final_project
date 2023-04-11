@@ -8,11 +8,10 @@
 }
 
 .registration_title{
-    position: relative;
+    text-align: center;
     background: #fff;
     color: #3e4d57;
     margin-top: 50px;
-    display: inline-block;
     padding: 15px 40px;
 
 

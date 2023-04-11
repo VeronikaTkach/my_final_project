@@ -7,6 +7,7 @@ import {Main} from './components/Main';
 import './index.css';
 import {Authorization} from './components/Authorization';
 import {Registration} from './components/Registration';
+import { CaseForm } from './components/CaseForm';
 
 const App = () => {
   
@@ -25,6 +26,7 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<Main />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/caseform" element={<CaseForm />} />
         </Routes>
       </StoreApi.Provider>
     </div>

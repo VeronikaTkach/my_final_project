@@ -1,0 +1,25 @@
+.caseform_title{
+    text-align: center;
+}
+
+.caseform{
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid black;
+    padding: 15px;
+    width: 50%;
+}
+
+.caseform input{
+    width: 90%;
+}
+
+.casrform select{
+    margin-left: 20px;
+}
+
+.type{
+    margin-left: 20px;
+    margin-right: 15px;
+    margin: 0 15px 0 20px
+}
