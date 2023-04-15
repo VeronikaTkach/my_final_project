@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import StoreContext from '../../data/store'
+import React from 'react'
+import { StoreContext } from '../../data/store'
 import { Routes, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import './Header.css'
@@ -7,15 +7,17 @@ import { CaseForm } from '../CaseForm/CaseForm'
 
 export const Header = ({setAuthActive}) => {
 
-    const [isLoggedIn, setLoggedIn] = useContext(StoreContext)
+    const {isLoggedIn} = React.useContext(StoreContext)
+    const {setIsLoggedIn} = React.useContext(StoreContext)
 
     const logOut = () => {
-        setLoggedIn (false)
-        localStorage.clear()
+        setIsLoggedIn(false)
+        // localStorage.clear()
     }
 
     const showAuthForm = () => {
-        setAuthActive(true)
+        // setAuthActive(true)
+        setIsLoggedIn(true)
     }
 
     return(
