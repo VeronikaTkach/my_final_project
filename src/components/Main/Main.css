@@ -14,3 +14,19 @@
     padding: 10px 10px;
     margin: 10px 10px;
 }
+
+.main_routing{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.main_link{
+    padding: 10px 10px;
+    margin: 10px 10px;
+    position: relative;
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+}

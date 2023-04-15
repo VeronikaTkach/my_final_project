@@ -1,10 +1,12 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {Link} from 'react-router-dom'
+import { StoreContext } from "../../data/store"
 import axios from 'axios'
 import './Authorization.css'
 
-export const Authorization = ({isAuthActive, setLoggedIn, setAuthActive}) => {
+export const Authorization = ({isAuthActive, setAuthActive}) => {
 
+    const [setLoggedIn] = useContext(StoreContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(false)
@@ -45,7 +47,7 @@ export const Authorization = ({isAuthActive, setLoggedIn, setAuthActive}) => {
             setData(res.data)
             setEmail('')
             setPassword('')
-            setAuthActive(false)
+            hideAuthorization()
             setLoggedIn(true)
             console.log(res)
             console.log(res.data)

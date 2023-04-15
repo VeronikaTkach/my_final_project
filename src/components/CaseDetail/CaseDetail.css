@@ -1,0 +1,35 @@
+.caseDetail_title{
+    text-align: center;
+}
+
+.caseDetail_form{
+    max-width:500px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.immute{
+    font-weight: bold;
+}
+
+p, select, button{
+    margin: 8px 0;
+}.detail_title{
+    text-align: center;
+}
+
+.detail_form{
+    max-width:500px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.immute{
+    font-weight: bold;
+}
+
+p, select, button{
+    margin: 8px 0;
+}

@@ -1,0 +1,33 @@
+.approve_block{
+    display: flex;
+}
+
+.detail_title{
+    text-align: center;
+}
+
+.detail_form{
+    max-width:500px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.immute{
+    font-weight: bold;
+}
+
+p, select, button{
+    margin: 8px 0;
+}
+
+.save_changes{
+    background-color: aliceblue;
+    padding: 10px 10px;
+}
+
+.unapprove{
+    background-color: maroon;
+    margin-left: 40px;
+    color: #fff;
+}
