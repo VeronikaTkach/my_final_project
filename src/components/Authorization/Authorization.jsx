@@ -6,7 +6,7 @@ import './Authorization.css'
 
 export const Authorization = ({isAuthActive, setAuthActive}) => {
 
-    const [setLoggedIn] = useContext(StoreContext)
+    const isLoggedIn = useContext(StoreContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(false)
