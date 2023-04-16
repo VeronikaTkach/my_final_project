@@ -2,10 +2,13 @@
     text-align: center;
 }
 
-.image{
+.main_image{
     width: 90%;
 }
 
+.image_wraper{
+    text-align: center;
+}
 
 .main_span{
     color:black;
@@ -30,3 +33,10 @@
     color:black;
     font-weight: bold;
 }
+
+@media screen (max-width: 580px;){
+
+    .main_image{
+        text-align: center;
+    }
+  }

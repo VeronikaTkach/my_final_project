@@ -12,12 +12,11 @@ export const Header = ({setAuthActive}) => {
 
     const logOut = () => {
         setIsLoggedIn(false)
-        // localStorage.clear()
+        localStorage.clear()
     }
 
     const showAuthForm = () => {
-        // setAuthActive(true)
-        setIsLoggedIn(true)
+        setAuthActive(true)
     }
 
     return(

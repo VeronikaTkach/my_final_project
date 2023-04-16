@@ -12,8 +12,8 @@ export const Main = () => {
         <div className='company_title'>
             <span className="main_span">Прокат велосипедов</span>
         </div> 
-        <div>
-            <img src={img1} alt="image" className="image" />
+        <div className="image_wraper">
+            <img src={img1} alt="image" className="main_image" />
         </div>
 
         {isLoggedIn ? 

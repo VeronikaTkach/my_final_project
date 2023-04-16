@@ -1,22 +1,40 @@
-import React, {useState, useContext} from 'react'
-import { StoreContext } from "../../data/store"
+import React, {useState, useContext, useEffect} from 'react'
+import { StoreContext } from "../../data/store" 
 import axios from 'axios'
 import './CaseForm.css'
 
 export const CaseForm = () => {
 
+    const getEmployeeListUrl = "/api/officers"
+    const {apiDomain} = useContext(StoreContext)
+
     const {isLoggedIn} = useContext(StoreContext)
+
+    const [employeeList, setEmployeeList] = useState([])
+
     const [licenseNumber, setLicenseNumber] = useState('')
     const [type, setType] = useState('')
     const [ownerFullName, setOwnerFullName] = useState('')
     const [date, setDate] = useState()
     const [description, setDescription] = useState('')
     const [color, setColor] = useState('')
-    const [employee, setEmployee] = useState('')
-
-    // const approvedPersons = personsInfo.filter((person) => {
-    //     return person.approved === true
-    // })
+    const [employeeId, setEmployeeId] = useState('')
+    
+    const approvedEmployeesList = employeeList.filter((person) => {
+        return person.approved === true
+    })
+    
+    const loadEmployees = async () => {
+        const userToken = localStorage.getItem('token')
+        const res = await axios.get(apiDomain + getEmployeeListUrl, {
+          headers: {
+            Authorization: 'Bearer ' + userToken
+          }
+        })
+        setEmployeeList(res.data.officers)
+    } 
+    
+    useEffect(() => { loadEmployees() }, [setEmployeeList])
 
     const changeName = (e) => {
         setOwnerFullName(e.target.value)
@@ -38,17 +56,15 @@ export const CaseForm = () => {
         setColor(e.target.value)
     }
 
-
     const changeType = (e) => {
         setType(e.target.value)
     }
 
-    // const changeEmployee = (e) => {
-    //     const chosenId = e.target.value
-    //     const chosenPerson = approvedPersons.filter((p) => p._id === chosenId)[0]
-    //     setEmployee(chosenPerson._id)
-    //     console.log(chosenPerson._id)
-    // }
+    const changeEmployee = (e) => {
+        const chosenId = e.target.value
+        setEmployeeId(chosenId)
+        console.log(chosenId)
+    }
 
     const sendCaseForm = (e) => {
         e.preventDefault()
@@ -96,9 +112,10 @@ export const CaseForm = () => {
             setDate('')
             setDescription('')
             alert('Report sent')
-        }).catch(err => {
+        })
+        .catch(err => {
             console.log(err)
-          });
+        });
 
     }
 
@@ -112,14 +129,13 @@ export const CaseForm = () => {
         <input type="text" onChange={changeDescription} value={description} placeholder='Описание'/>
         <input type="text" onChange={changeColor} value={color} placeholder='Цвет'/>
 
-        {isLoggedIn &&  <div>Ответственный сотрудник:</div>}
-
-        {/* {login && <select onChange={changeEmployee} defaultValue={'default'}>
-                    <option value="default">Ответственный сотрудник:</option>
-                    {approvedPersons.map((person, index) => (
-                        <option value={person._id} key={index}>{person.firstName} {person.lastName}</option>
-                    ))}
-                </select>} */}
+        {isLoggedIn &&   <select onChange={changeEmployee} defaultValue={'default'}>
+                        <option value="default">Ответственный сотрудник:</option>
+                        {approvedEmployeesList.map((person, index) => (
+                            <option value={person._id} key={index}>{person.firstName} {person.lastName}</option>
+                        ))}
+                    </select>}
+                    <br/>
                 
         <label  className="type">Тип велосипеда</label>
                 <select defaultValue={'default'}  onChange={changeType}>

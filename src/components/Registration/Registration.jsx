@@ -4,8 +4,10 @@ import axios from 'axios'
 
 export const Registration = () => {
 
-    const registrationUrl = 'https://sf-final-project-be.herokuapp.com/api/auth/sign_up'
+    const registrationUrl = '/api/auth/sign_up'
     
+    const {apiDomain} = useContext(StoreContext)
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmpassword, setConfirmPassword] = useState('')
@@ -60,7 +62,7 @@ export const Registration = () => {
             'Content-Type': 'application/json'
         }
 
-        axios.post(registrationUrl, data, headers)
+        axios.post(apiDomain + registrationUrl, data, headers)
             .then(res => {
                 setData(res.data)
                 setEmail('')

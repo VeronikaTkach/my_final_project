@@ -6,11 +6,13 @@ import './Authorization.css'
 
 export const Authorization = ({isAuthActive, setAuthActive}) => {
 
-    const isLoggedIn = useContext(StoreContext)
+    const authorizationUrl = '/api/auth/sign_in'
+    const {apiDomain} = useContext(StoreContext)
+    
+    const {setIsLoggedIn} = useContext(StoreContext)    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState(false)
-    const [data, setData] = useState(null)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const hideAuthorization = () => {
         setAuthActive(false)
@@ -28,11 +30,19 @@ export const Authorization = ({isAuthActive, setAuthActive}) => {
         setPassword(e.target.value)
     }
 
-    const authorizationUrl = 'https://sf-final-project-be.herokuapp.com/api/auth/sign_in'
-
     const authorizationRequest = (e) => {
         e.preventDefault()
-        setError(false)
+        setErrorMessage('')
+
+        if(email == ""){
+          setErrorMessage("Введите e-mail")
+          return
+        }
+
+        if (password == ""){
+          setErrorMessage("Введите пароль")
+          return
+        }
     
         const data = {
           email, password
@@ -42,19 +52,19 @@ export const Authorization = ({isAuthActive, setAuthActive}) => {
           'Content-Type': 'application/json'
         }
     
-        axios.post(authorizationUrl, data, headers)
+        axios.post(apiDomain + authorizationUrl, data, headers)
           .then(res => {
-            setData(res.data)
             setEmail('')
             setPassword('')
             hideAuthorization()
-            setLoggedIn(true)
+            setIsLoggedIn(true)
             console.log(res)
             console.log(res.data)
             localStorage.setItem('token', res.data.data.token)
           })
           .catch(err => {
-            setError(true)
+            console.log(err)
+            setErrorMessage(err.response.data.message)
             setEmail('')
             setPassword('')
           })
@@ -66,7 +76,7 @@ export const Authorization = ({isAuthActive, setAuthActive}) => {
                 <Link to='/registration' onClick={hideAuthorization} className='auth'>Регистрация</Link>
                 <input type="text" value={email} onChange={changeEmail} placeholder='Email' />
                 <input type="password" value={password} onChange={changePass} placeholder='Пароль' />
-                {error && <p className='alarm'>Ошибка</p>}
+                <p className='alarm'> {errorMessage} </p>
                 <button type='submit' className='authorization_button'>Вход</button>
             </form>
         </div>

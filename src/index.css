@@ -6,3 +6,10 @@
   font-family: 'Roboto Slab', serif;
 
 }
+
+@media screen (max-width: 580px;){
+
+  .main_image{
+      text-align: center;
+  }
+}
