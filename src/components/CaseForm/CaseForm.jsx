@@ -6,6 +6,8 @@ import './CaseForm.css'
 export const CaseForm = () => {
 
     const getEmployeeListUrl = "/api/officers"
+    const anonymousReportUrl = "/api/public/report"
+    const authorizedReportUrl = "/api/casesf"
     const {apiDomain} = useContext(StoreContext)
 
     const {isLoggedIn} = useContext(StoreContext)
@@ -81,20 +83,18 @@ export const CaseForm = () => {
             alert('Введите номер лицензии!')
         }
 
-        const caseFormUrl = (isLoggedIn ? 'https://sf-final-project-be.herokuapp.com/api/cases/' : 'https://sf-final-project-be.herokuapp.com/api/public/report')
-
-        const requestData = () => {
-            if (isLoggedIn === true) {
-                const data = {licenseNumber, date, color, type, 
-                    ownerFullName, employee, description }
+        const caseFormUrl = (isLoggedIn ? apiDomain + authorizedReportUrl : apiDomain + anonymousReportUrl)
+            
+        const getRequestData = () => {
+            if (isLoggedIn == true) {
+                return {licenseNumber, date, color, type, ownerFullName, employee, description }
             }
             else {
-                const data = {licenseNumber, date, color, type, 
-                    ownerFullName, description, clientId:'002610f3-abca-4187-9f08-b825e6504605' }
+                return {licenseNumber, date, color, type, ownerFullName, description, clientId: '002610f3-abca-4187-9f08-b825e6504605' }
             }
         }
 
-        const requestHeaders = () => {
+        const getRequestHeaders = () => {
             if (isLoggedIn === true) {
                 return { Authorization: 'Bearer '+localStorage.getItem('token') }
             }
@@ -103,20 +103,19 @@ export const CaseForm = () => {
             }
         }
 
-        axios.post(caseFormUrl, requestData, requestHeaders).then(res=>{
-            setCases(res.data)
-            setLicenseNumber('')
-            setOwnerFullName('')
-            setColor('')
-            setType('')
-            setDate('')
-            setDescription('')
-            alert('Report sent')
-        })
-        .catch(err => {
-            console.log(err)
-        });
-
+        axios.post(caseFormUrl, getRequestData(), getRequestHeaders())
+            .then(res=>{
+                setLicenseNumber('')
+                setOwnerFullName('')
+                setColor('')
+                setType('')
+                setDate('')
+                setDescription('')
+                alert('Report sent')
+            })
+            .catch(err => {
+                console.log(err)
+            });
     }
 
     return(
