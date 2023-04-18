@@ -12,7 +12,7 @@ export const Main = () => {
         <div className='company_title'>
             <span className="main_span">Прокат велосипедов</span>
         </div> 
-        <div className="image_wraper">
+        <div>
             <img src={img1} alt="image" className="main_image" />
         </div>
 

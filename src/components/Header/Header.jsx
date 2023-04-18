@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { StoreContext } from '../../data/store'
 import { Routes, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -20,20 +20,23 @@ export const Header = ({setAuthActive}) => {
     }
 
     return(
-        <div className="header">
+        <Fragment>
+            <div className="header">
             <ul className="headerMenu">
                 <li>
                     <Link className='link' to='/'>Главная </Link>
                 </li>
 
                 <li>
-                    <Link className='link' to ="caseform">Сообщить о краже </Link>                   
+                    <Link className='link' to="caseform">Сообщить о краже </Link>
                 </li>
 
-                {isLoggedIn ? 
-                    <li><Link className="link" onClick={logOut} to="/">Выход</Link></li> : 
+                {isLoggedIn ?
+                    <li><Link className="link" onClick={logOut} to="/">Выход</Link></li> :
                     <li><Link className="link" onClick={showAuthForm} to="/">Вход</Link></li>}
             </ul>
         </div>
+        <div className='line'></div>
+        </Fragment>
     )
 }

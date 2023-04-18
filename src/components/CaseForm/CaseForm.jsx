@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react'
+import React, {useState, useContext, useEffect, Fragment} from 'react'
 import { StoreContext } from "../../data/store" 
 import axios from 'axios'
 import './CaseForm.css'
@@ -128,22 +128,29 @@ export const CaseForm = () => {
         <input type="date" onChange={changeDate} value={date} placeholder='Дата кражи'/>
         <input type="text" onChange={changeDescription} value={description} placeholder='Описание'/>
         <input type="text" onChange={changeColor} value={color} placeholder='Цвет'/>
+        <br/>
 
-        {isLoggedIn &&   <select onChange={changeEmployee} defaultValue={'default'}>
-                        <option value="default">Ответственный сотрудник:</option>
-                        {approvedEmployeesList.map((person, index) => (
-                            <option value={person._id} key={index}>{person.firstName} {person.lastName}</option>
-                        ))}
-                    </select>}
+        {isLoggedIn &&  <Fragment>
+                    <label className="type">ФИО сотрудника</label>
+                    <br/>
+                    <select onChange={changeEmployee} defaultValue={'default'}>
+                    <option value="default">Ответственный сотрудник:</option>
+                    {approvedEmployeesList.map((person, index) => (
+                        <option value={person._id} key={index}>{person.firstName} {person.lastName}</option>
+                    ))}
+                </select>
+                </Fragment>}
                     <br/>
                 
         <label  className="type">Тип велосипеда</label>
+                <br/>
                 <select defaultValue={'default'}  onChange={changeType}>
                     <option value="default">Выберите тип велосипеда:</option>
                     <option value="city">Городской</option>
                     <option value="sport">Спортивный</option>
                     <option value="electric">Электрический</option>
                 </select>
+                <br/>
                 <button type='submit' className='authorization_button'>Вход</button>
         </form>
         </>

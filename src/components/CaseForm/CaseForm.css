@@ -8,6 +8,7 @@
     border: 1px solid black;
     padding: 15px;
     width: 50%;
+
 }
 
 .caseform input{
@@ -19,11 +20,33 @@
 }
 
 .type{
-    margin-left: 20px;
-    margin-right: 15px;
     margin: 0 15px 0 20px
 }
 
-.default{
+
+
+@media (max-width: 425px){
+
+    .caseform_title{
+        font-size: 15px;
+    }
     
+    .caseform{
+        width: 90%;  
+    }
+    
+    .caseform input{
+        width: 80%;
+    }
+    
+    .caseform select{
+        margin-left: 20px;
+    }
+    
+    .type{
+        margin: 0 15px 0 20px;
+        font-size: 13px;
+        
+    }
+
 }
