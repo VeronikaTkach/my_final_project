@@ -1,4 +1,5 @@
-import React, {useState} from "react"
+import React, {useContext, useState} from "react"
+import { StoreContext } from "../../data/store" 
 import './Registration.css'
 import axios from 'axios'
 

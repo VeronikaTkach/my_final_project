@@ -19,7 +19,7 @@ export const Main = () => {
         {isLoggedIn ? 
         <div className="main_routing">
             <Link className='main_link' to='employees'>Ответственные сотрудники</Link>
-            <Link className='main_link' to='caseslist'>Список краж</Link>
+            <Link className='main_link' to='cases'>Список краж</Link>
         </div>
             : 
             null}
