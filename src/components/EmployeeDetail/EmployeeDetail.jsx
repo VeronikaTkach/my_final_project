@@ -1,18 +1,23 @@
 import React, {Fragment, useState} from 'react'
 import { useLocation } from 'react-router-dom'
+import { StoreContext } from "../../data/store" 
 import './EmployeeDetail.css'
 import axios from 'axios'
 
-export const EmployeeDetail = (props) => {
+export const EmployeeDetail = () => {
    
+    const employeesUrl = "/api/officers"
+    const {apiDomain} = useContext(StoreContext)
+
     const location = useLocation()
+
     const [submit, setSubmit] = useState(false)
-    const [person, setPerson] = useState(location.state)
-    const [approved, setApproved] = useState(person.approved)
-    // const email = person.email
-    const [password, setPassword] = useState(person.password)
-    const [firstName, setFirstName] = useState(person.firstName)
-    const [lastName, setLastName] = useState(person.lastName)
+    const [employee, setEmployee] = useState(location.state)
+    const [approved, setApproved] = useState(employee.approved)
+    // const email = employee.email
+    const [password, setPassword] = useState(employee.password)
+    const [firstName, setFirstName] = useState(employee.firstName)
+    const [lastName, setLastName] = useState(employee.lastName)
 
     const changeFirstName = (e) => {
         setFirstName(e.target.value)
@@ -48,13 +53,13 @@ export const EmployeeDetail = (props) => {
             firstName, lastName, approved
         }
 
-        axios.put(`https://sf-final-project-be.herokuapp.com/api/officers/${person._id}`,data,{
+        axios.put({apiDomain} + {employeesUrl} + '/' + {employee._id},data,{
             headers:{
                 Authorization: 'Bearer '+localStorage.getItem('token')
             }
             
         }).then(res => {
-            setPerson(res.data)
+            setEmployee(res.data)
         }).catch(err => {
             console.log(err)
         })

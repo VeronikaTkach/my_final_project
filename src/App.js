@@ -6,6 +6,7 @@ import './index.css';
 import {Authorization} from './components/Authorization';
 import {Registration} from './components/Registration';
 import {EmployeeList} from './components/EmployeeList';
+import {EmployeeDetail} from './components/EmployeeDetail';
 import {CaseList} from './components/CaseList';
 import {CaseForm} from './components/CaseForm';
 
@@ -24,7 +25,7 @@ const App = () => {
           <Route path="/cases" element={<CaseList />} />
           {/* <Route path={"/caselist/:itemId"} element={<CaseDetail />} /> */}
           <Route path="/employees" element={<EmployeeList />} />
-          {/* <Route path={"/employeeslist/:itemId"} element={<EmployeeDetail />} /> */}
+          <Route path={"/employees/:itemId"} element={<EmployeeDetail />} />
         </Routes>
     </div>
   )

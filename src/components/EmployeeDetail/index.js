@@ -1,0 +1,1 @@
+export {EmployeeDetail} from './EmployeeDetail'
