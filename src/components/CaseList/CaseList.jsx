@@ -72,7 +72,7 @@ export const CaseList = () => {
                             {
                             caseList.map((c,index) => 
                                     <tr key={c._id}>
-                                        <td>{moment(с.date).format('L')}</td>
+                                        <td>{с.date.format('L')}</td>
                                         <td>{c.ownerFullName}</td>
                                         <td>{c.licenseNumber}</td>
                                         <td>{c.color}</td>

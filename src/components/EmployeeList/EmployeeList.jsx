@@ -70,7 +70,7 @@ export const EmployeeList = () => {
                         </thead>
                         <tbody>
                             {
-                            employeeList.map((employee,index) => 
+                            employeeList.map((employee) => 
                                     <tr key={employee._id}>
                                         <td>{employee.firstName}</td>
                                         <td>{employee.lastName}</td>

@@ -96,7 +96,7 @@ export const CaseForm = () => {
 
         const getRequestHeaders = () => {
             if (isLoggedIn === true) {
-                return { Authorization: 'Bearer '+localStorage.getItem('token') }
+                return { Authorization: 'Bearer ' + localStorage.getItem('token') }
             }
             else {
                 return null
