@@ -14,14 +14,7 @@ export const EmployeeDetail = () => {
     const {state} = useLocation()
     const employee = state
 
-    const [approved, setApproved] = useState(employee.approved)
-    const [password, setPassword] = useState('')
-    const [firstName, setFirstName] = useState(employee.firstName)
-    const [lastName, setLastName] = useState(employee.lastName)
-
-    const changeFirstName = (e) => {
-        setFirstName(e.target.value)
-    }
+    const [approved, setApproved] = useState(employee.approved)(\=)
 
     const changeLastName = (e) => {
         setLastName(e.target.value)
