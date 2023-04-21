@@ -1,8 +1,64 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 
 import './CaseDetail.css'
+import { StoreContext } from '../../data/store'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const CaseDetail = () => {
+
+    const caseUrl = "/api/cases"
+    const {apiDomain} = useContext(StoreContext)
+    const userToken = localStorage.getItem('token')
+
+    const navigate = useNavigate()
+    const {state} = useLocation()
+    const currentCase = state
+
+    const [status, setStatus] = useState(currentCase.status)
+    const [licenseNumber, setlicenseNumber] = useState(currentCase.licenseNumber)
+    const [type, setType] = useState(currentCase.type)
+    const [ownerFullNAme, setOwnerFullName] = useState(currentCase.ownerFullName)
+    const [color, setColor] = useState(currentCase.color)
+    const [date, setDate] = useState(currentCase.ldate)
+    const [employee, setEmployee] = useState(currentCase.licenseNumber)
+    const [description, setDescription] = useState(currentCase.licenseNumber)
+    const [resolution, setResolutionn] = useState(currentCase.resolution)
+
+    const changeStatus = (e) => {
+        setStatus(e.target.value)
+    }
+
+    const changeLicensNumber = (e) => {
+        setLicensNumber(e.target.value)
+    }
+
+    const changeType = (e) => {
+        setType(e.target.value) 
+    }
+
+    const changeOwnerFullNAme = (e) => {
+        setOwnerFullNAme(e.target.value)
+    }
+
+    const changeColor = (e) => {
+        setColor(e.target.value)
+    }
+
+    const changeDate = (e) => {
+        setDate(e.target.value)
+    }
+
+    const changeEmployee = (e) => {
+        setEmployee(e.target.value)
+    }
+
+    const changeDescription = (e) => {
+        setDescription(e.target.value)
+    }
+
+    const changeResolution = (e) => {
+        setResolution(e.target.value)
+    }
 
 
     return(
@@ -10,6 +66,7 @@ export const CaseDetail = () => {
         <h1 className='caseDetail_title'>Детальная страница сообщения о краже</h1>
         <form className="caseDetail_form" onSubmit={caseDetailForm}>
             <input type="text" onChange={changeFullName} value={ownerFullName} placeholder='ФИО владельца'/>
+            {/* <input type="text" value={employee.clientId} readOnly /> */}
             <input type="text" onChange={changeColor} value={color} placeholder='Цвет велосипеда'/>
             <label>Дата кражи: {moment(date).format("MMMM Do YYYY, h:mm:ss a")}</label>
             <input type ="date"></input>

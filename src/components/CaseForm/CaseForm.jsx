@@ -7,7 +7,7 @@ export const CaseForm = () => {
 
     const getEmployeeListUrl = "/api/officers"
     const anonymousReportUrl = "/api/public/report"
-    const authorizedReportUrl = "/api/casesf"
+    const authorizedReportUrl = "/api/cases"
     const {apiDomain} = useContext(StoreContext)
 
     const {isLoggedIn} = useContext(StoreContext)
@@ -87,23 +87,18 @@ export const CaseForm = () => {
             
         const getRequestData = () => {
             if (isLoggedIn == true) {
-                return {licenseNumber, date, color, type, ownerFullName, employee, description }
+                return {licenseNumber, date, color, type, ownerFullName, employeeId, description }
             }
             else {
                 return {licenseNumber, date, color, type, ownerFullName, description, clientId: '002610f3-abca-4187-9f08-b825e6504605' }
             }
         }
 
-        const getRequestHeaders = () => {
-            if (isLoggedIn === true) {
-                return { Authorization: 'Bearer ' + localStorage.getItem('token') }
-            }
-            else {
-                return null
-            }
-        }
+        const requestHeaders = isLoggedIn ?
+            { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }} :
+            null
 
-        axios.post(caseFormUrl, getRequestData(), getRequestHeaders())
+        axios.post(caseFormUrl, getRequestData(), requestHeaders)
             .then(res=>{
                 setLicenseNumber('')
                 setOwnerFullName('')
@@ -145,12 +140,11 @@ export const CaseForm = () => {
                 <br/>
                 <select defaultValue={'default'}  onChange={changeType}>
                     <option value="default">Выберите тип велосипеда:</option>
-                    <option value="city">Городской</option>
+                    <option value="general">Городской</option>
                     <option value="sport">Спортивный</option>
-                    <option value="electric">Электрический</option>
                 </select>
                 <br/>
-                <button type='submit' className='authorization_button'>Вход</button>
+                <button type='submit' className='authorization_button'>Сообщить о краже</button>
         </form>
         </>
     )
