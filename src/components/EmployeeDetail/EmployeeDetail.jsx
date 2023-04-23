@@ -14,7 +14,7 @@ export const EmployeeDetail = () => {
     const {state} = useLocation()
     const employee = state
 
-    const [approved, setApproved] = useState(employee.approved)(\=)
+    const [approved, setApproved] = useState(employee.approved)
 
     const changeLastName = (e) => {
         setLastName(e.target.value)

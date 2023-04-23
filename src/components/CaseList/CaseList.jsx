@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from 'react'
 import { Link } from "react-router-dom"
 import { StoreContext } from "../../data/store" 
 import axios from 'axios'
+import moment from 'moment'
 import './CaseList.css'
 
 export const CaseList = () => {
@@ -61,22 +62,28 @@ export const CaseList = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th>Дата</th>
+                                <th>Статус</th>
+                                <th>Дата кражи</th>
                                 <th>ФИО владельца</th>
                                 <th>Номер</th>
                                 <th>Цвет</th>
                                 <th>Тип</th>
+                                <th>Описание</th>
+                                <th>Итог</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                             caseList.map((c) => 
                                     <tr key={c._id}>
-                                        <td>{c.date}</td>
+                                        <td>{c.status}</td>
+                                        <td>{moment(c.date).format("MMMM Do YYYY")}</td>
                                         <td>{c.ownerFullName}</td>
                                         <td>{c.licenseNumber}</td>
                                         <td>{c.color}</td>
                                         <td>{c.type}</td>
+                                        <td>{c.description}</td>
+                                        <td>{c.resolution}</td>
                                         <td><button onClick={onDelete} id_to_delete={c._id} className='delete'>Удалить</button></td>
                                         <td><Link className='detail_link' to={`./${c._id}`} state={c}><button className="detail">Подробности</button></Link></td> 
                                     </tr>

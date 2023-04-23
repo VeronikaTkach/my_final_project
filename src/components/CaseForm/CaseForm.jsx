@@ -22,8 +22,8 @@ export const CaseForm = () => {
     const [color, setColor] = useState('')
     const [employeeId, setEmployeeId] = useState('')
     
-    const approvedEmployeesList = employeeList.filter((person) => {
-        return person.approved === true
+    const approvedEmployeesList = employeeList.filter((employee) => {
+        return employee.approved === true
     })
     
     const loadEmployees = async () => {
@@ -87,7 +87,7 @@ export const CaseForm = () => {
             
         const getRequestData = () => {
             if (isLoggedIn == true) {
-                return {licenseNumber, date, color, type, ownerFullName, employeeId, description }
+                return {licenseNumber, date, color, type, ownerFullName, officer: employeeId, description }
             }
             else {
                 return {licenseNumber, date, color, type, ownerFullName, description, clientId: '002610f3-abca-4187-9f08-b825e6504605' }

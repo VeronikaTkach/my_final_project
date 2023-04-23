@@ -1,12 +1,16 @@
-import React, { Fragment, useContext } from 'react'
-
+import React, { Fragment, useState, useContext, useEffect } from 'react'
 import './CaseDetail.css'
 import { StoreContext } from '../../data/store'
 import { useLocation, useNavigate } from 'react-router-dom'
+import moment from 'moment'
+import axios from 'axios'
 
 export const CaseDetail = () => {
 
-    const caseUrl = "/api/cases"
+    const availableStatuses = ['new', 'in_progress', 'done'
+]
+    const getEmployeeListUrl = "/api/officers"
+    const casesUrl = "/api/cases"
     const {apiDomain} = useContext(StoreContext)
     const userToken = localStorage.getItem('token')
 
@@ -14,30 +18,36 @@ export const CaseDetail = () => {
     const {state} = useLocation()
     const currentCase = state
 
-    const [status, setStatus] = useState(currentCase.status)
-    const [licenseNumber, setlicenseNumber] = useState(currentCase.licenseNumber)
-    const [type, setType] = useState(currentCase.type)
-    const [ownerFullNAme, setOwnerFullName] = useState(currentCase.ownerFullName)
-    const [color, setColor] = useState(currentCase.color)
-    const [date, setDate] = useState(currentCase.ldate)
-    const [employee, setEmployee] = useState(currentCase.licenseNumber)
-    const [description, setDescription] = useState(currentCase.licenseNumber)
-    const [resolution, setResolutionn] = useState(currentCase.resolution)
+    const [employeeList, setEmployeeList] = useState([])
 
-    const changeStatus = (e) => {
-        setStatus(e.target.value)
+    const [caseStatus, setCaseStatus] = useState(currentCase.status)
+    const [licenseNumber, setLicenseNumber] = useState(currentCase.licenseNumber)
+    const [type, setType] = useState(currentCase.type)
+    const [ownerFullName, setOwnerFullName] = useState(currentCase.ownerFullName)
+    const [color, setColor] = useState(currentCase.color)
+    const [date, setDate] = useState(currentCase.date)
+    const [employeeId, setEmployeeId] = useState(currentCase.officer)
+    const [description, setDescription] = useState(currentCase.description)
+    const [resolution, setResolution] = useState(currentCase.resolution)
+
+    console.log(currentCase)
+
+    useEffect(() => { loadEmployees() }, [setEmployeeList])
+
+    const changeCaseStatus = (e) => {
+        setCaseStatus(e.target.value)
     }
 
-    const changeLicensNumber = (e) => {
-        setLicensNumber(e.target.value)
+    const changeLicenseNumber = (e) => {
+        setLicenseNumber(e.target.value)
     }
 
     const changeType = (e) => {
         setType(e.target.value) 
     }
 
-    const changeOwnerFullNAme = (e) => {
-        setOwnerFullNAme(e.target.value)
+    const changeOwnerFullName = (e) => {
+        setOwnerFullName(e.target.value)
     }
 
     const changeColor = (e) => {
@@ -48,8 +58,8 @@ export const CaseDetail = () => {
         setDate(e.target.value)
     }
 
-    const changeEmployee = (e) => {
-        setEmployee(e.target.value)
+    const changeEmployeeId = (e) => {
+        setEmployeeId(e.target.value)
     }
 
     const changeDescription = (e) => {
@@ -60,31 +70,87 @@ export const CaseDetail = () => {
         setResolution(e.target.value)
     }
 
+    const updateCaseData = async (e) => {
+        e.preventDefault()
+      
+        const data = {
+            caseStatus, ownerFullName, color, licenseNumber, type, date, resolution, description, officer: employeeId
+        }
+
+        axios.put(apiDomain + casesUrl + '/' + currentCase._id,data,{
+            headers:{
+                Authorization: 'Bearer ' + userToken
+            }
+            
+        }).then(res => {
+            setCases(res.data.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    const approvedEmployeesList = employeeList.filter((employee) => {
+        return employee.approved === true
+    })
+    
+    const loadEmployees = async () => {
+        const res = await axios.get(apiDomain + getEmployeeListUrl, {
+          headers: {
+            Authorization: 'Bearer ' + userToken
+          }
+        })
+        setEmployeeList(res.data.officers)
+    } 
 
     return(
         <Fragment>
         <h1 className='caseDetail_title'>Детальная страница сообщения о краже</h1>
-        <form className="caseDetail_form" onSubmit={caseDetailForm}>
-            <input type="text" onChange={changeFullName} value={ownerFullName} placeholder='ФИО владельца'/>
-            {/* <input type="text" value={employee.clientId} readOnly /> */}
+        <form className="caseDetail_form" onSubmit={updateCaseData}>
+            <label className = "immute">Создано: {moment(currentCase.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</label>
+            {currentCase.updatedAt ? <label className = "immute">Обновлено: {moment(currentCase.updatedAt).format("MMMM Do YYYY, h:mm:ss a")}</label> : ""}
+            <br/>
+            <label>ФИО Владельца</label>
+            <input type="text" onChange={changeOwnerFullName} value={ownerFullName} placeholder='ФИО владельца'/>
+            <br/>
+            <label>Client ID </label>
+            <input type="text" value={currentCase.clientId} readOnly />
+            <br/>
+            <label>Цвет</label>
             <input type="text" onChange={changeColor} value={color} placeholder='Цвет велосипеда'/>
-            <label>Дата кражи: {moment(date).format("MMMM Do YYYY, h:mm:ss a")}</label>
-            <input type ="date"></input>
+            <br/>
+            <label>Дата кражи </label>
+            <input type ="date" onChange={changeDate} value={moment(date).format("YYYY-MM-DD")}/>
+            <br/>
+            <label>Номер лицензии </label>
             <input type="text" onChange={changeLicenseNumber} value={licenseNumber} placeholder='Номер лицензии'/>
+            <br/>
+            <label>Тип велосипеда </label>
             <input type="text" onChange={changeType} value={type} placeholder='Тип велосипеда'/>
-            <p className = "immute">Создано:{moment(createdAt).format("MMMM Do YYYY, h:mm:ss a")}</p>
-            <p className = "immute">Обновлено:{moment(updatedAt).format("MMMM Do YYYY, h:mm:ss a")}</p>
-            <p>Статус заявки:<b>{status}</b></p>
-            <select onChange={changeEmployee} defaultValue={'default'}>
-                <option value="default">Выберите сотрудника по заявке:</option>
-                {approvedPersons.map((person, index) => (
-                    <option value={person._id} key={index}>{person.firstName} {person.lastName}</option>
+            <br/>
+            <label>Подробности </label>
+            <input type="text" onChange={changeDescription} value={description} placeholder='Подробности'/>
+            <br/>
+            <label>Статус заявки </label>
+            <select onChange={changeCaseStatus} defaultValue={ caseStatus ? caseStatus : 'default'}>
+                <option value="default">Выберите статус</option>
+                {availableStatuses.map((s, index) => (<option value={s} key={index}>{s}</option>))}
+            </select>
+            <br/>
+            <label>Ответственный сотрудник </label>
+            <select onChange={changeEmployeeId} defaultValue={ employeeId ? employeeId : 'default'}>
+                <option value="default">Выберите сотрудника</option>
+                {approvedEmployeesList.map((em, index) => (
+                    <option value={em._id} key={index}>{em.firstName} {em.lastName}</option>
                 ))}
             </select>
-            { updatedPerson ? <p>Ответственный сотрудник по заявке {updatedPerson.firstName} {updatedPerson.lastName}</p> : <p> Не назначен</p>}
-            {description ? <p>{description}</p> : <p>There is now description now</p>}
-            {!resolution || status !== 'done' ? <p className='immute'>Нет решения до сих пор</p> : <p className='immute'>{resolution}</p>}
-            {submit && <p className='report_sent'>Изменения сохранены</p>}
+            <br/>
+            { caseStatus == 'done' ?
+            <Fragment>
+                <label>Закрывающий комментарий </label>
+                <input type="text" onChange={changeResolution} value={resolution} placeholder='Закрывающий комментарий'/>
+                <br/> 
+            </Fragment> : ""
+            }
             <button type='Submit' className='button save'>Сохранить</button>
         </form>
         </Fragment>

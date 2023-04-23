@@ -9,6 +9,7 @@ import {EmployeeList} from './components/EmployeeList';
 import {EmployeeDetail} from './components/EmployeeDetail';
 import {CaseList} from './components/CaseList';
 import {CaseForm} from './components/CaseForm';
+import {CaseDetail} from './components/CaseDetail';
 
 const App = () => {
   
@@ -23,7 +24,7 @@ const App = () => {
           <Route path="/registration" element={<Registration />} />
           <Route path="/caseform" element={<CaseForm />} />
           <Route path="/cases" element={<CaseList />} />
-          {/* <Route path={"/caselist/:itemId"} element={<CaseDetail />} /> */}
+          <Route path={"/cases/:itemId"} element={<CaseDetail />} />
           <Route path="/employees" element={<EmployeeList />} />
           <Route path={"/employees/:itemId"} element={<EmployeeDetail />} />
         </Routes>
