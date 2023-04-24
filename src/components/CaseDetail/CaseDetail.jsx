@@ -72,9 +72,14 @@ export const CaseDetail = () => {
 
     const updateCaseData = async (e) => {
         e.preventDefault()
-      
+        
+        if(caseStatus == 'done' && !resolution){
+            alert('Нужно заполнить закрывающий комментарий!')
+            return
+        }
+
         const data = {
-            caseStatus, ownerFullName, color, licenseNumber, type, date, resolution, description, officer: employeeId
+            status: caseStatus, ownerFullName, color, licenseNumber, type, date, resolution, description, officer: employeeId
         }
 
         axios.put(apiDomain + casesUrl + '/' + currentCase._id,data,{
@@ -83,7 +88,7 @@ export const CaseDetail = () => {
             }
             
         }).then(res => {
-            setCases(res.data.data)
+            navigate("/cases");
         }).catch(err => {
             console.log(err)
         })
@@ -102,11 +107,13 @@ export const CaseDetail = () => {
         setEmployeeList(res.data.officers)
     } 
 
+    console.log("EmployeeID: " + employeeId)
+
     return(
         <Fragment>
         <h1 className='caseDetail_title'>Детальная страница сообщения о краже</h1>
         <form className="caseDetail_form" onSubmit={updateCaseData}>
-            <label className = "immute">Создано: {moment(currentCase.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</label>
+            <label className = "immute">Создано: {moment(currentCase.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</label> <br/>
             {currentCase.updatedAt ? <label className = "immute">Обновлено: {moment(currentCase.updatedAt).format("MMMM Do YYYY, h:mm:ss a")}</label> : ""}
             <br/>
             <label>ФИО Владельца</label>
@@ -136,7 +143,7 @@ export const CaseDetail = () => {
                 {availableStatuses.map((s, index) => (<option value={s} key={index}>{s}</option>))}
             </select>
             <br/>
-            <label>Ответственный сотрудник </label>
+            <label>Выбрать сотрудника: </label>
             <select onChange={changeEmployeeId} defaultValue={ employeeId ? employeeId : 'default'}>
                 <option value="default">Выберите сотрудника</option>
                 {approvedEmployeesList.map((em, index) => (

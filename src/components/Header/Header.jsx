@@ -35,8 +35,7 @@ export const Header = ({setAuthActive}) => {
                     <li><Link className="link" onClick={logOut} to="/">Выход</Link></li> :
                     <li><Link className="link" onClick={showAuthForm} to="/">Вход</Link></li>}
             </ul>
-        </div>
-        <div className='line'></div>
+            </div>
         </Fragment>
     )
 }

@@ -57,9 +57,9 @@ export const EmployeeList = () => {
         <>
         {            
             isLoading ? (<h1>Загрузка</h1>): (
-                <div className='wrapper'>
+                <div className='createTable'>
                     <h1>Список сотрудников</h1>
-                    <table>
+                    <table className='table'>
                         <thead>
                             <tr>
                                 <th>Имя</th>
@@ -77,7 +77,7 @@ export const EmployeeList = () => {
                                         <td>{employee.email}</td>
                                         <td>{employee.approved.toString()}</td>
                                         <td><button onClick={onDelete} id_to_delete={employee._id} className='delete'>Удалить</button></td>
-                                        <td><Link className='detail_link' to={`./${employee._id}`} state={employee}><button className="detail">Подробности</button></Link></td> 
+                                        <td><Link className='detail_link' to={`./${employee._id}`} state={employee}><button className="detail">Подробности</button></Link></td>
                                     </tr>
                                 )
                             }

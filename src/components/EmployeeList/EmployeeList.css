@@ -1,7 +1,5 @@
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.createTable{
+
 }
 
 .approve{
@@ -10,7 +8,7 @@
 }
 
 .detail{
-    padding: 10px 12px;
+    background-color: rgb(3, 248, 64);
 }
 
 .detail_link{
@@ -25,11 +23,39 @@ td{
     padding: 10px;
 }
 
-.delete{background-color: rgb(248, 3, 3);}
+.delete{
+    background-color: rgb(248, 3, 3);
+}
 
-/* .wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-} */
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid green;
+}
 
+.table th,td {
+    padding: 10px;
+    letter-spacing: 1px;
+    border-collapse: collapse;
+    border: 2px solid green;
+}
+
+@media (max-width: 425px){
+
+    h1{
+        font-size: 15px;
+    }
+
+    th{
+        font-size: 13px;
+    }
+    
+    td{
+        font-size: 13px;
+    }
+
+    .table th,td {
+        padding: 10px 2px;
+
+    }
+  }

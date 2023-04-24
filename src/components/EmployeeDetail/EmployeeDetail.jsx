@@ -15,7 +15,14 @@ export const EmployeeDetail = () => {
     const employee = state
 
     const [approved, setApproved] = useState(employee.approved)
+    const [password, setPassword] = useState('')
+    const [firstName, setFirstName] = useState(employee.firstName)
+    const [lastName, setLastName] = useState(employee.lastName)
 
+    const changeFirstName = (e) => {
+        setFirstName(e.target.value)
+    }
+    
     const changeLastName = (e) => {
         setLastName(e.target.value)
     }
@@ -37,10 +44,6 @@ export const EmployeeDetail = () => {
 
         if(password != ''){
             data.password = password
-        }
-
-        const headers = {
-            'Authorization': 'Bearer ' + userToken
         }
 
         axios.put( apiDomain + employeesUrl + '/' + employee._id, data, {
