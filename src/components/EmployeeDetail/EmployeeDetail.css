@@ -8,6 +8,7 @@
 
 .detail_form{
     max-width:500px ;
+    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,0 +1,65 @@
+.createTable{
+
+}
+
+.approve{
+    background-color:mediumturquoise;
+    padding: 10px 10px;
+}
+
+.detail{
+    background-color: rgb(3, 248, 64);
+}
+
+.detail_link{
+    margin-top: 0px;
+}
+
+h1{
+    text-align: center;
+}
+
+th{
+    padding: 10px;
+}
+
+td{
+    padding: 10px;
+}
+
+.delete{
+    background-color: rgb(248, 3, 3);
+}
+
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid green;
+}
+
+.table th,td {
+    padding: 10px;
+    letter-spacing: 1px;
+    border-collapse: collapse;
+    border: 2px solid green;
+}
+
+@media (max-width: 425px){
+
+    h1{
+        font-size: 15px;
+    }
+
+    th{
+        font-size: 13px;
+    }
+    
+    td{
+        font-size: 13px;
+    }
+
+    .table th,td {
+        padding: 10px 2px;
+
+    }
+  }

@@ -42,9 +42,13 @@ export const Registration = () => {
         setConfirmPassword(e.target.value)
     }
 
-    const checkPasswords = () =>
-    {
-
+    const checkPasswords = (pass, confirmpass) => {
+        if (pass === confirmpass){
+            return true
+        }
+        else {
+            return false
+        }
     }
 
     const registrationRequest = (e) => {
@@ -57,6 +61,12 @@ export const Registration = () => {
             email,
             password,
             clientId
+        }
+
+        const passwordCheckResult = checkPasswords(password, confirmpassword)
+        if (passwordCheckResult === false){
+            alert('Пароли не совпадают')
+            return
         }
 
         const headers = {

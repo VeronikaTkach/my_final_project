@@ -57,9 +57,9 @@ export const CaseList = () => {
         <>
         {            
             isLoading ? (<h1>Загрузка</h1>): (
-                <div className='wrapper'>
+                <div className='createTable'>
                     <h1>Сообщения о краже</h1>
-                    <table>
+                    <table className='table'>
                         <thead>
                             <tr>
                                 <th>Статус</th>
