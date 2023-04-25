@@ -12,6 +12,7 @@ export const CaseDetail = () => {
     const getEmployeeListUrl = "/api/officers"
     const casesUrl = "/api/cases"
     const {apiDomain} = useContext(StoreContext)
+    const {bikeTypes} = useContext(StoreContext)
     const userToken = localStorage.getItem('token')
 
     const navigate = useNavigate()
@@ -73,6 +74,26 @@ export const CaseDetail = () => {
     const updateCaseData = async (e) => {
         e.preventDefault()
         
+        if(ownerFullName == ""){
+            alert ('Введите ФИО Владельца')
+            return
+        }
+
+        if(licenseNumber == ""){
+            alert ('Введите номер лицензии')
+            return
+        }
+
+        if(bikeTypes == "default"){
+            alert ('Выберите тип велосипеда')
+            return
+        }
+
+        if(caseStatus == "default"){
+            alert ('Выберите статус заявки')
+            return
+        }
+
         if(caseStatus == 'done' && !resolution){
             alert('Нужно заполнить закрывающий комментарий!')
             return
@@ -132,7 +153,10 @@ export const CaseDetail = () => {
             <input type="text" onChange={changeLicenseNumber} value={licenseNumber} placeholder='Номер лицензии'/>
             <br/>
             <label>Тип велосипеда </label>
-            <input type="text" onChange={changeType} value={type} placeholder='Тип велосипеда'/>
+            <select onChange={changeType} defaultValue={type ? type : 'default'}>
+                <option value="default">Выберите тип велосипеда</option>
+                {bikeTypes.map((s, index) => (<option value={s} key={index}>{s}</option>))}
+            </select>
             <br/>
             <label>Подробности </label>
             <input type="text" onChange={changeDescription} value={description} placeholder='Подробности'/>

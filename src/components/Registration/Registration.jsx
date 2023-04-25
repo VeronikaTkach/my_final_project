@@ -15,7 +15,7 @@ export const Registration = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [clientId, setClientId] = useState('')
-    const [error, setError] = useState(false)
+    const [error, setError] = useState('')
     const [data, setData] = useState(null)
 
     const enterName = (e) => {
@@ -53,7 +53,7 @@ export const Registration = () => {
 
     const registrationRequest = (e) => {
         e.preventDefault()
-        setError(false)
+        setError('')
 
         const data = {
             firstName,
@@ -65,7 +65,22 @@ export const Registration = () => {
 
         const passwordCheckResult = checkPasswords(password, confirmpassword)
         if (passwordCheckResult === false){
-            alert('Пароли не совпадают')
+            setError('Пароли не совпадают')
+            return
+        }
+
+        if (email == ""){
+            setError('Введите email')
+            return
+        }
+
+        if (password == ""){
+            setError('Введите пароль')
+            return
+        }
+
+        if (clientId == ""){
+            setError('Введите clientId')
             return
         }
 
@@ -87,7 +102,7 @@ export const Registration = () => {
             })
             .catch(error => {
                 console.log(error)
-                setError(true)
+                setError(error.response.data.message)
             })
     }
 
@@ -102,7 +117,7 @@ export const Registration = () => {
                 <input onChange={enterPassword} value={password} type="password" placeholder='Пароль'/>
                 <input onChange={confirmPassword} value={confirmpassword} type="password" placeholder='Подтвердите пароль' />
 
-                {error && <p className='alarm'>Ошибка</p>}
+                <label className='alarm'>{error}</label>
                 <button className='registration_button'>Зарегистрироваться</button>
             </form>
         </>
