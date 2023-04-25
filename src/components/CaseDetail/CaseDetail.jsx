@@ -33,8 +33,6 @@ export const CaseDetail = () => {
 
     console.log(currentCase)
 
-    useEffect(() => { loadEmployees() }, [setEmployeeList])
-
     const changeCaseStatus = (e) => {
         setCaseStatus(e.target.value)
     }
@@ -114,10 +112,6 @@ export const CaseDetail = () => {
             console.log(err)
         })
     }
-
-    const approvedEmployeesList = employeeList.filter((employee) => {
-        return employee.approved === true
-    })
     
     const loadEmployees = async () => {
         const res = await axios.get(apiDomain + getEmployeeListUrl, {
@@ -125,10 +119,18 @@ export const CaseDetail = () => {
             Authorization: 'Bearer ' + userToken
           }
         })
-        setEmployeeList(res.data.officers)
+
+        const approvedEmployees = res.data.officers.filter((employee) => {
+            return employee.approved === true
+        })
+
+        setEmployeeList(approvedEmployees)
     } 
 
+    useEffect(() => { loadEmployees() }, [setEmployeeList])
+
     console.log("EmployeeID: " + employeeId)
+    console.log("employeeList: " + employeeList)
 
     return(
         <Fragment>
@@ -170,7 +172,7 @@ export const CaseDetail = () => {
             <label>Выбрать сотрудника: </label>
             <select onChange={changeEmployeeId} defaultValue={ employeeId ? employeeId : 'default'}>
                 <option value="default">Выберите сотрудника</option>
-                {approvedEmployeesList.map((em, index) => (
+                {employeeList.map((em, index) => (
                     <option value={em._id} key={index}>{em.firstName} {em.lastName}</option>
                 ))}
             </select>
